@@ -233,6 +233,13 @@
         [self getAvailableItems:result];
     } else if ([@"getAppStoreInitiatedProducts" isEqualToString:call.method]) {
         [self getAppStoreInitiatedProducts:result];
+    } else if ([@"presentCodeRedemptionSheet" isEqualToString:call.method]) {
+        if (@available(iOS 14.0, *)) {
+            [[SKPaymentQueue defaultQueue] presentCodeRedemptionSheet];
+            result(@"presentCodeRedemptionSheet invoked");
+        } else {
+            result([FlutterError errorWithCode:@"ERROR" message:@"presentCodeRedemptionSheet required iOS 14+" details:nil]);
+        }
     } else {
         result(FlutterMethodNotImplemented);
     }

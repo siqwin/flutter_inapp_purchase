@@ -647,4 +647,11 @@ class FlutterInappPurchase {
       _purchaseErrorController = null;
     }
   }
+
+  Future<String> presentCodeRedemptionSheetIOS() async {
+    if (_platform.isIOS) {
+      return await _channel.invokeMethod('presentCodeRedemptionSheet');
+    }
+    throw PlatformException(code: _platform.operatingSystem, message: "platform not supported");
+  }
 }
